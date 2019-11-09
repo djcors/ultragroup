@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'backhotel',
+    'frontend'
 ]
 
 MIDDLEWARE = [
@@ -69,7 +72,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'prueba_angular.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
