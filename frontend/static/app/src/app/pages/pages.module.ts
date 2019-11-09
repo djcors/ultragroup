@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { RouterModule } from '@angular/router';
 //pages
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -27,7 +28,8 @@ import { HotelsComponent } from './backhotel/hotels/hotels.component';
         HomeComponent,
         RegisterComponent,
         DashboardComponent,
-        MainComponent, 
+        MainComponent,
+        RouterModule
     ]
 })
 

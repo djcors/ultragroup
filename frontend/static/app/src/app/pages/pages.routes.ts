@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent } from './backhotel/main.component';
 import { DashboardComponent } from './backhotel/dashboard/dashboard.component';
+import { HotelsComponent } from './backhotel/hotels/hotels.component';
 
 const pagesRoutes: Routes = [
     {
@@ -12,6 +13,10 @@ const pagesRoutes: Routes = [
             {
                 path: '',
                 component: DashboardComponent
+            },
+            {
+                path: 'hotels',
+                component: HotelsComponent
             }
         ]
     }
