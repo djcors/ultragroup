@@ -2,26 +2,66 @@
     <div class="login-register" style="background-image:url(/static/app/dist/app/assets/images/background/login-register.jpg);">
         <div class="login-box card">
             <div class="card-body">
-                <form class="form-horizontal form-material" id="loginform" action="index.html">
+                <form
+                    ngNativeValidate
+                    [formGroup]="form"
+                    (ngSubmit)="onSubmit()"
+                    class="form-horizontal form-material"
+                    id="loginform"
+                    >
                     <h3 class="box-title m-b-20">Sign Up</h3>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" placeholder="Name">
+                            <input class="form-control"
+                                formControlName="username"
+                                type="text"
+                                required
+                                placeholder="Username"
+                                name="username">
+                                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                    <div *ngIf="f.username.errors.minlength">Username must be at least 8 characters</div>
+                                    <div *ngIf="f.username.errors.required">Username is required</div>
+                                </div>
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" required="" placeholder="Email">
+                            <input class="form-control"
+                                type="email"
+                                required
+                                placeholder="Email"
+                                formControlName="email"
+                                name="email">
                         </div>
                     </div>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" required="" placeholder="Password">
+                            <input 
+                                class="form-control"
+                                type="password"
+                                required
+                                placeholder="Password"
+                                formControlName="password"
+                                name="password">
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors.required">Password is required</div>
+                                    <div *ngIf="f.password.errors.mustMatch">Passwords must match</div>
+                                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                                </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" required="" placeholder="Confirm Password">
+                            <input class="form-control"
+                                type="password"
+                                required
+                                placeholder="Confirm Password"
+                                formControlName="password2"
+                                name="password2">
+                                <div *ngIf="submitted && f.password2.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password2.errors.required">Username is required</div>
+                                    <div *ngIf="f.password2.errors.mustMatch">Passwords must match</div>
+                                </div>
                         </div>
                     </div>
                     <div class="form-group text-center p-b-20">
@@ -31,7 +71,7 @@
                     </div>
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
-                            Already have an account? <a href="pages-login.html" class="text-info m-l-5"><b>Sign In</b></a>
+                            Already have an account? <a [routerLink]="['/login']" routerLinkActive="active"  class="text-info m-l-5"><b>Sign In</b></a>
                         </div>
                     </div>
                 </form>

@@ -11,6 +11,14 @@ export class ApiService {
     'Content-type': 'application/json'
   })
   constructor(private http: HttpClient) { }
+
+  authLogin(data:any): Observable<any>{
+    return this.http.get(
+      `${this.baseUrl}/auth/`,
+      {headers: this.httpHeders}
+    );
+  }
+
   getAllHotels(): Observable<any>{
     return this.http.get(
       `${this.baseUrl}hotel/`,

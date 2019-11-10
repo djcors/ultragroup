@@ -1,5 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 //pages
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -12,6 +15,10 @@ import { HotelsComponent } from './backhotel/hotels/hotels.component';
 
 @NgModule({
     imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
         shareModule,
         pagesRoutingModule
     ],
@@ -21,15 +28,14 @@ import { HotelsComponent } from './backhotel/hotels/hotels.component';
         RegisterComponent,
         DashboardComponent,
         MainComponent,
-        HotelsComponent
+        HotelsComponent,
     ],
     exports :[
         LoginComponent,
         HomeComponent,
         RegisterComponent,
         DashboardComponent,
-        MainComponent,
-        RouterModule
+        MainComponent
     ]
 })
 

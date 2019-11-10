@@ -4,7 +4,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li *ngFor="let menu of _sidebar.menu"> 
+                    <li *ngFor="let menu of _sidebar.menu" routerLinkActive="active"> 
                         <a *ngIf="menu.path; else notPath" [routerLink]="[menu.path]"><i [class]="menu.icon"></i> {{menu.title}} </a>
                         <ng-template #notPath>
                             <a>

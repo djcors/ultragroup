@@ -2,6 +2,12 @@
 from rest_framework import serializers
 from backhotel.models import *
 
+class AgencyModelSerializer(serializers.ModelSerializer):
+	token = serializers.CharField(source='auth_token.key', read_only=True)
+	class Meta:
+		model = AgencyModel
+		fields = ('username', 'token')
+
 
 class HotelModelSerializer(serializers.ModelSerializer):
     class Meta:
