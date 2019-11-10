@@ -3,10 +3,13 @@ from rest_framework import serializers
 from backhotel.models import *
 
 class AgencyModelSerializer(serializers.ModelSerializer):
-	token = serializers.CharField(source='auth_token.key', read_only=True)
-	class Meta:
-		model = AgencyModel
-		fields = ('username', 'token')
+    token = serializers.CharField(source='auth_token.key', read_only=True)
+    date_joined = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S",
+        required=False, read_only=True)
+    class Meta:
+        model = AgencyModel
+        fields = ('id','username', 'first_name', 'last_name', 'date_joined',
+            'email','token')
 
 
 class HotelModelSerializer(serializers.ModelSerializer):
@@ -16,8 +19,8 @@ class HotelModelSerializer(serializers.ModelSerializer):
 
 
 class RoomModelSerializer(serializers.ModelSerializer):
-	#hotel_display = serializers.CharField(source='hotel.name',
-	#	label='hotel', read_only=True)
+    #hotel_display = serializers.CharField(source='hotel.name',
+    #   label='hotel', read_only=True)
     class Meta:
         model = RoomModel
         fields = '__all__'

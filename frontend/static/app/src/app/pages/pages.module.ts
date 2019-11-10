@@ -28,14 +28,15 @@ import { HotelsComponent } from './backhotel/hotels/hotels.component';
         RegisterComponent,
         DashboardComponent,
         MainComponent,
-        HotelsComponent,
+        HotelsComponent
     ],
     exports :[
         LoginComponent,
         HomeComponent,
         RegisterComponent,
         DashboardComponent,
-        MainComponent
+        MainComponent,
+        HotelsComponent
     ]
 })
 

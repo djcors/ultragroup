@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/services.index';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   submitted = false;
   constructor(
+    public router: Router,
     public formBuilder: FormBuilder,
     public _apiServices: ApiService
     ) { }
@@ -28,8 +30,9 @@ export class LoginComponent implements OnInit {
       if (this.form.invalid) {
           return;
       }
-      //let data = sJSON.stringify(this.form.value, null, 4)
-      //this._apiServices.authLogin(data)
+      let data = JSON.stringify(this.form.value, null, 4)
+      this._apiServices.authLogin(data)
+        .subscribe(resp => this.router.navigateByUrl('/backhotel'))
   }
 
 }

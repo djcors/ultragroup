@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Agency } from 'src/app/models/agency.models';
+import { Router } from "@angular/router";
 
+import { Agency } from 'src/app/models/agency.models';
+import { ApiService } from 'src/app/services/services.index';
+import * as Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -28,7 +31,11 @@ export class RegisterComponent implements OnInit {
   }
   }
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    public router: Router,
+    public formBuilder: FormBuilder,
+    public _apiServices: ApiService
+    ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -46,18 +53,34 @@ export class RegisterComponent implements OnInit {
 
   get f() { return this.form.controls; }
   onSubmit() {
-    console.log(this.form.valid)
       this.submitted = true;
       // stop here if form is invalid
       if (this.form.invalid) {
           return;
       }
-      let angecy = new Agency(
+      let agency = new Agency(
         this.form.value.username,
         this.form.value.email,
         this.form.value.password
       )
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.form.value, null, 4));
+      this._apiServices.signUp(agency)
+        .subscribe(
+          response =>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Nice!',
+              text: 'Successful sign Up',
+            })
+            this.router.navigateByUrl('/login')
+          },
+          error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.error.results,
+            })
+          }
+        );
   }
 
   onReset() {

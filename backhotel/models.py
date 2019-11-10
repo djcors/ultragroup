@@ -4,8 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-class AgencyModel(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class AgencyModel(User):
 
     class Meta:
         verbose_name = "AgencyModel"
@@ -61,5 +60,8 @@ class RoomModel(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+from .signals import *
     
     

@@ -15,8 +15,8 @@ import { ServiceModule } from './services/service.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     pagesModule,
+    AppRoutingModule,
     ServiceModule
   ],
   providers: [],
