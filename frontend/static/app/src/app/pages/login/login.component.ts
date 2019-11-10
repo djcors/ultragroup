@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       }
       let data = JSON.stringify(this.form.value, null, 4)
       this._apiServices.authLogin(data)
-        .subscribe(resp => this.router.navigateByUrl('/backhotel'))
+        .subscribe(resp => this.router.navigate(['/backhotel']))
   }
 
 }

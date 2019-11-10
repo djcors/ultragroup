@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 
 import { Agency } from 'src/app/models/agency.models';
 import { ApiService } from 'src/app/services/services.index';
-import * as Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',

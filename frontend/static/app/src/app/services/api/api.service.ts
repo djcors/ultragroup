@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Agency } from 'src/app/models/agency.models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,35 @@ export class ApiService {
   httpHeders = new HttpHeaders({
     'Content-type': 'application/json'
   })
-  constructor(private http: HttpClient) { }
+
+  agency = null
+  token = null
+
+  constructor(
+    private http: HttpClient,
+    public router: Router
+  ) { 
+    this.loadStorage()
+  }
+
+  loadStorage(){
+    if(localStorage.getItem('agency')){
+      this.agency = localStorage.getItem('agency')
+      this.token = localStorage.getItem('token')
+    }
+  }
+
+  isLogged(){
+    return ((this.agency && this.agency.length > 15) && (this.token && this.token.length > 15))
+  }
+
+  logOut(){
+    this.agency = null
+    this.token = null
+    localStorage.clear()
+    this.router.navigateByUrl('/')
+  }
+
 
   authLogin(data:any){
     return this.http.post(
