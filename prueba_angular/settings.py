@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     'backhotel',
     'frontend'
 ]
@@ -168,3 +169,8 @@ CORS_ALLOW_METHODS = (
 )
 
 
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = default_headers + (
+    'authorization',
+)

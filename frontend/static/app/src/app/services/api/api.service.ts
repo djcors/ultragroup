@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Agency } from 'src/app/models/agency.models';
 import { Router } from '@angular/router';
+import { Room } from 'src/app/models/room.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
     'Content-type': 'application/json'
   })
 
-  agency = null
+  agency:Agency
   token = null
 
   constructor(
@@ -26,13 +27,27 @@ export class ApiService {
 
   loadStorage(){
     if(localStorage.getItem('agency')){
-      this.agency = localStorage.getItem('agency')
+      this.agency = JSON.parse(localStorage.getItem('agency'))
       this.token = localStorage.getItem('token')
+    }
+
+    if(this.isLogged()){
+      this.httpHeders = new HttpHeaders({
+        'Content-type': 'application/json',
+        'Authorization': `Token ${this.token}`
+      })
     }
   }
 
   isLogged(){
-    return ((this.agency && this.agency.length > 15) && (this.token && this.token.length > 15))
+    return (this.agency && (this.token && this.token.length > 15))
+  }
+
+  saveStorage(agency:Agency, token:string){
+    localStorage.setItem('token', token)
+    localStorage.setItem('agency', JSON.stringify(agency))
+    this.agency = agency
+    return true
   }
 
   logOut(){
@@ -43,16 +58,21 @@ export class ApiService {
   }
 
 
-  authLogin(data:any){
+  authLogin(agency:Agency){
     return this.http.post(
       `${this.baseUrl}auth/`,
-      data,
+      agency,
       {headers: this.httpHeders})
     .pipe( 
       map( (response:any) => {
-        localStorage.setItem('token', response.data.token)
-        localStorage.setItem('agency', JSON.stringify(response.data))
-        return true
+        let agency = new Agency(
+          response.data.username,
+          response.data.email,
+          null,
+          response.data.id,
+          response.data.token
+        )
+        return this.saveStorage(agency, response.data.token)
       })
     )
   }
@@ -65,10 +85,55 @@ export class ApiService {
     )
   }
 
-  getAllHotels(): Observable<any>{
+  getAllHotels(id:number): Observable<any>{
+    let url = 'hotel'
+    if(id){
+      url = `${url}/?agency=${id}`
+    }
     return this.http.get(
-      `${this.baseUrl}hotel/`,
+      `${this.baseUrl}${url}`,
       {headers: this.httpHeders}
     );
+  }
+
+  getAllRooms(id:number): Observable<any>{
+    let url = 'room'
+    if(id){
+      url = `${url}/?hotel__agency=${id}`
+    }
+    return this.http.get(
+      `${this.baseUrl}${url}`,
+      {headers: this.httpHeders}
+    );
+  }
+
+  deleteAny(endpoint:string, id:number): Observable<any>{
+    return this.http.delete(
+      `${this.baseUrl}${endpoint}/${id}/`,
+      {headers: this.httpHeders}
+    );
+  }
+
+  createAny(endpoint, object:any): Observable<any>{
+    return this.http.post(
+      `${this.baseUrl}${endpoint}/`,
+      object,
+      {headers: this.httpHeders}
+    )
+  }
+  
+  updateAny(endpoint, object:any, id:number): Observable<any>{
+    return this.http.patch(
+      `${this.baseUrl}${endpoint}/${id}/`,
+      object,
+      {headers: this.httpHeders}
+    )
+  }
+
+  retrieveAny(endpoint:string, id:number): Observable<any>{
+    return this.http.get(
+      `${this.baseUrl}${endpoint}/${id}/`,
+      {headers: this.httpHeders}
+    )
   }
 }

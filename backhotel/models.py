@@ -41,6 +41,7 @@ class HotelModel(BaseModel):
     class Meta:
         verbose_name = "HotelModel"
         verbose_name_plural = "HotelModels"
+        ordering = ('id',)
 
     def __str__(self):
         return "{} - {}".format(self.name, str(self.category))
@@ -57,6 +58,7 @@ class RoomModel(BaseModel):
     class Meta:
         verbose_name = "RoomModel"
         verbose_name_plural = "RoomModels"
+        ordering = ('id',)
 
     def __str__(self):
         return self.name

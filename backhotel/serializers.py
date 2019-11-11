@@ -13,14 +13,15 @@ class AgencyModelSerializer(serializers.ModelSerializer):
 
 
 class HotelModelSerializer(serializers.ModelSerializer):
+    #agency = AgencyModelSerializer(many=False)
     class Meta:
         model = HotelModel
         fields = '__all__'
 
 
 class RoomModelSerializer(serializers.ModelSerializer):
-    #hotel_display = serializers.CharField(source='hotel.name',
-    #   label='hotel', read_only=True)
+    hotel_display = serializers.CharField(source='hotel.name',
+       label='hotel', read_only=True)
     class Meta:
         model = RoomModel
         fields = '__all__'

@@ -3,10 +3,11 @@ from backhotel.serializers import *
 from backhotel.models import *
 from rest_framework import (filters , generics,
     permissions, viewsets, parsers, renderers, status)
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from .utils.filters import FilterAndSearchModelViewSet
 
 
 class AuthToken(APIView):
@@ -71,13 +72,33 @@ class AgencyViewSet(viewsets.ModelViewSet):
 
 
 
-class HotelModelViewSet(viewsets.ModelViewSet):
-    queryset = HotelModel.objects.filter(active=True)
+class HotelModelViewSet(FilterAndSearchModelViewSet):
+    queryset = HotelModel.objects.all()
     serializer_class = HotelModelSerializer
-    permission_classes=[DjangoModelPermissionsOrAnonReadOnly,]
+    permission_classes=[permissions.DjangoModelPermissionsOrAnonReadOnly, permissions.IsAuthenticatedOrReadOnly]
+    filter_fields = ('agency',)
+    http_method_names = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']
 
 
-class RoomModelViewSet(viewsets.ModelViewSet):
-    queryset = RoomModel.objects.filter(active=True)
+class RoomModelViewSet(FilterAndSearchModelViewSet):
+    queryset = RoomModel.objects.all()
     serializer_class = RoomModelSerializer
-    permission_classes=[DjangoModelPermissionsOrAnonReadOnly,]
+    permission_classes=[permissions.DjangoModelPermissionsOrAnonReadOnly, permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']
+    filter_fields = {
+        'active': ['exact'],
+        'hotel': ['exact'],
+        'hotel__agency': ['exact']
+    }
+
+    def get_authenticate_header(self, request):
+        """
+        If a request is unauthenticated, determine the WWW-Authenticate
+        header to use for 401 responses, if any.
+        """
+        authenticators = self.get_authenticators()
+        print(request.META)
+        print(authenticators, '*'*100)
+        if authenticators:
+            print(authenticators[0].authenticate_header(request), '?'*100)
+            return authenticators[0].authenticate_header(request)

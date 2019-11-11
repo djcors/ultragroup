@@ -5,6 +5,9 @@ import { MainComponent } from './backhotel/main.component';
 import { DashboardComponent } from './backhotel/dashboard/dashboard.component';
 import { HotelsComponent } from './backhotel/hotels/hotels.component';
 import { AuthGuard } from '../services/services.index';
+import { RoomsComponent } from './backhotel/rooms/rooms.component';
+import { AddRoomComponent } from './backhotel/rooms/add-room.component';
+import { AddHotelComponent } from './backhotel/hotels/add-hotel.component';
 
 const pagesRoutes: Routes = [
     {
@@ -19,6 +22,26 @@ const pagesRoutes: Routes = [
             {
                 path: 'hotels',
                 component: HotelsComponent
+            },
+            {
+                path: 'hotels/add',
+                component: AddHotelComponent
+            },
+            {
+                path: 'hotels/:id',
+                component: AddHotelComponent
+            },
+            {
+                path: 'rooms',
+                component: RoomsComponent,
+            },
+            {
+                path: 'rooms/add',
+                component: AddRoomComponent
+            },
+            {
+                path: 'rooms/:id',
+                component: AddRoomComponent
             }
         ]
     }

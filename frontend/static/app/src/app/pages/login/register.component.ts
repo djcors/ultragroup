@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
   get f() { return this.form.controls; }
   onSubmit() {
       this.submitted = true;
-      // stop here if form is invalid
+      
       if (this.form.invalid) {
           return;
       }

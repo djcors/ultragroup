@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">{{ editView ? 'Edit hotel' : 'Add hotel' }}</h4>
+            </div>
+            <div class="card-body">
+                <form 
+                    ngNativeValidate
+                    [formGroup]="form"
+                    (ngSubmit)="onSubmit()">
+                    <div class="form-body">
+                        <hr>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Name</label>
+                                    <input type="text" id="name" formControlName="name" class="form-control" placeholder="Name">
+                                </div>
+                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.name.errors.required">Name is required</div>
+                                </div> 
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Code</label>
+                                    <input type="text" id="code" formControlName="code" class="form-control form-control-danger" placeholder="Code">
+                                </div>
+                                <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+                                        <div *ngIf="f.code.errors.required">Code is required</div>
+                                    </div> 
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Category</label>
+                                    <input
+                                        type="number"
+                                        formControlName="category"
+                                        class="form-control form-control-danger"
+                                        placeholder="Category"
+                                        max="5"
+                                        min="1">
+                                </div>
+                                <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                                        <div *ngIf="f.category.errors.required">Price is required</div>
+                                        </div> 
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="checkbox checkbox-success">
+                                        <input id="checkbox1" type="checkbox" formControlName="active">
+                                        <label for="checkbox1"> Active </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary"> <i class="fa fa-check"></i> Save</button>
+                        <button type="button" class="btn btn-inverse" [routerLink]="['/backhotel/hotels']" routerLinkActive="router-link-active" >Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

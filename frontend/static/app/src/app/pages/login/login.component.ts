@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/services.index';
 import { Router } from "@angular/router";
+import { Agency } from 'src/app/models/agency.models';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +31,15 @@ export class LoginComponent implements OnInit {
       if (this.form.invalid) {
           return;
       }
-      let data = JSON.stringify(this.form.value, null, 4)
-      this._apiServices.authLogin(data)
-        .subscribe(resp => this.router.navigate(['/backhotel']))
+      let agency = new Agency(
+        this.form.value.username,
+        null,
+        this.form.value.password
+      )
+      this._apiServices.authLogin(agency)
+        .subscribe(resp =>{
+          window.location.href = '/backhotel'
+        })
   }
 
 }
