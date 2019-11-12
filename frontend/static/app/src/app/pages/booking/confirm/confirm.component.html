@@ -1,1 +1,82 @@
-<p>confirm works!</p>
+<div class="row">
+    <!-- Column -->
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Confirmation</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card" *ngIf="room && booking">
+            <div class="card-body">
+                <div class="m-t-30"> 
+                    <h5>Room name:</h5>
+                    <h4 class="card-title m-t-10">{{room.name}}</h4>
+                    <h6 class="card-subtitle">{{room.hotel_display}}</h6>
+                    <div class="row text-center justify-content-md-center">
+                        <div class="col-3"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> {{booking.total_pax}} Pax</a></div>
+                        <div class="col-3"><a href="javascript:void(0)" class="link"><i class="fa fa-moon-o"></i> {{nights}} nights </a></div>
+                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="fa fa-money"></i> {{booking.total_imported | currency}} Tax inc.</a></div>
+                        <div class="col-2"><a href="javascript:void(0)" class="link"><i class="fa fa fa-percent"></i> {{booking.tax}} Tax </a></div>
+                    </div>
+                    <div class="row text-center justify-content-md-center m-t-20">
+                            <div class="col-5"><a href="javascript:void(0)" class="link"><i class="mdi mdi-airplane-landing"></i> {{arrivalString}}</a></div>
+                            <div class="col-5"><a href="javascript:void(0)" class="link"><i class="mdi mdi-airplane-takeoff"></i> {{depertureString}}</a></div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header bg-info">
+                                <h4 class="m-b-0 text-white">Emergency contact</h4>
+                            </div>
+                            <div class="card-body">
+                                <form
+                                    ngNativeValidate
+                                    [formGroup]="form"
+                                    (ngSubmit)="onSubmit()">
+                                    <div class="form-body">
+                                        <h3 class="card-title">Person Info</h3>
+                                        <hr>
+                                        <div class="row p-t-20">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Full name</label>
+                                                    <input type="text" formControlName="emergency_name" placeholder="Full name" class="form-control">
+                                                    <div *ngIf="submitted && f.emergency_name.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.emergency_name.errors.required">Name is required</div>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Phone number</label>
+                                                    <input type="text" formControlName="emergency_phone" placeholder="Phone number" class="form-control">
+                                                    <div *ngIf="submitted && f.emergency_phone.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.emergency_phone.errors.required">phone is required</div>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                            <!--/span-->
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Confirm</button>
+                                        <button type="button" class="btn btn-inverse">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <!-- Column -->
+</div>
