@@ -73,13 +73,12 @@ export class PaxComponent implements OnInit {
             this.submitted = true
             this.form.reset()
             this.paxNumber++
-            console.log(this.paxNumber, '??????????')
             localStorage.setItem('pax_counter', this.paxNumber.toString())
           }
           
         },
         error => {
-          console.log(error, '---------')
+          
         }
       );
       
