@@ -61,7 +61,64 @@ class RoomModel(BaseModel):
         ordering = ('id',)
 
     def __str__(self):
-        return self.name
+        return self.name  
+
+
+class BookingModel(models.Model):
+
+    room = models.ForeignKey(RoomModel, related_name='booking_rooms', on_delete=models.CASCADE)
+    emergency_name = models.CharField(max_length=200, blank=True, null=True)
+    emergency_phone = models.CharField(max_length=200, blank=True, null=True)
+    tax = models.PositiveIntegerField(blank=True, null=True)
+    base_price = models.PositiveIntegerField(blank=True, null=True)
+    total_imported = models.PositiveIntegerField(blank=True, null=True)
+    confirmed = models.BooleanField(default=False)
+    date = models.DateField(auto_now_add=True)
+    total_pax = models.PositiveIntegerField(blank=True, null=True)
+    arrival = models.DateField(blank=True, null=True)
+    deperture = models.DateField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "BookingModel"
+        verbose_name_plural = "BookingModels"
+
+    def __str__(self):
+        return self.room.name
+
+
+class PaxModel(models.Model):
+
+    NONE, MALE, FEMALE, OTHER = range(0,4)
+    GENRE = (
+        (NONE, 'No spec'),
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+        (OTHER, 'Other')
+    )
+
+    NID, PASSPORT = range(1,3)
+    DOCUMENT_TYPES = (
+        (NID, "NID"),
+        (PASSPORT, "Passport"),
+    )
+
+    booking = models.ForeignKey(BookingModel, related_name='booking_pax', on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=250)
+    born_date = models.DateField()
+    genre = models.PositiveIntegerField(choices=GENRE, default=NONE)
+    doc_type = models.PositiveIntegerField(choices=DOCUMENT_TYPES, default=PASSPORT)
+    doc_number = models.BigIntegerField()
+    email = models.CharField(max_length=250)
+    telephone = models.CharField(max_length=250)
+
+    class Meta:
+        verbose_name = "PaxModel"
+        verbose_name_plural = "PaxModels"
+
+    def __str__(self):
+        return self.full_name
+    
+
 
 
 from .signals import *

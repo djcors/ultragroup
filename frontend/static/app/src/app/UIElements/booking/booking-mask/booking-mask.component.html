@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Booking</h4>
+            </div>
+            <div class="card-body">
+                <form
+                    ngNativeValidate
+                    [formGroup]="form"
+                    (ngSubmit)="onSubmit()">
+                    <div class="form-body">
+                        <div class="row p-t-10 justify-content-md-center">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Choose arrival and deperture</label>
+                                    <input formControlName="dates" class="form-control input-daterange-datepicker" type="text" name="daterange" />
+                                    <div *ngIf="submitted && f.dates.errors" class="invalid-feedback">
+                                        <div *ngIf="f.dates.errors.required">Select arrival and deperture</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Pax</label>
+                                    <input type="number" formControlName="pax" id="pax" class="form-control" placeholder="Pax">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Destination</label>
+                                    <select name="location" id="location" formControlName="location" class="form-control custom-select">
+                                        <option value="null" disabled>Select destination</option>
+                                        <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                                        <div *ngIf="f.location.errors.required">Select destination</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary m-t-30"> <i class="mdi mdi-airplane-takeoff"></i> Book now!</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -7,3 +7,6 @@ admin.site.register(AgencyModel)
 admin.site.register(HotelModel)
 admin.site.register(RoomModel)
 
+admin.site.register(BookingModel)
+admin.site.register(PaxModel)
+

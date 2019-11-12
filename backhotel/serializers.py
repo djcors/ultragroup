@@ -13,7 +13,6 @@ class AgencyModelSerializer(serializers.ModelSerializer):
 
 
 class HotelModelSerializer(serializers.ModelSerializer):
-    #agency = AgencyModelSerializer(many=False)
     class Meta:
         model = HotelModel
         fields = '__all__'
@@ -24,4 +23,18 @@ class RoomModelSerializer(serializers.ModelSerializer):
        label='hotel', read_only=True)
     class Meta:
         model = RoomModel
+        fields = '__all__'
+
+
+class BookingModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = BookingModel
+        fields = '__all__'
+
+
+class PaxModelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PaxModel
         fields = '__all__'

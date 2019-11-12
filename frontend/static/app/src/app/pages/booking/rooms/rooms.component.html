@@ -1,0 +1,19 @@
+<div class="row">
+        <div class="col-lg-3 col-md-6" *ngFor="let room of rooms">
+            <!-- Card -->
+            <div class="card">
+                <div class="card-body" >
+                    <h4 class="card-title">
+                        {{ room.name }} 
+                        <span class="label label-success label-rounded">{{ room.hotel_display }}</span>
+                    </h4>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Total price/night</h6>
+                        <h2 class="m-t-0">{{(room.base_price + ( room.base_price / 100 * room.tax )) | currency }}</h2>
+                    </div>
+                    <button  class="btn btn-primary" (click)="bookingRoom(room.id)"> <i class="mdi mdi-shopping"></i> Book now!</button>
+                </div>
+            </div>
+            <!-- Card -->
+        </div>
+    </div>

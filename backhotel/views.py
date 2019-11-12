@@ -6,6 +6,7 @@ from rest_framework import (filters , generics,
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 
 from .utils.filters import FilterAndSearchModelViewSet
 
@@ -88,17 +89,39 @@ class RoomModelViewSet(FilterAndSearchModelViewSet):
     filter_fields = {
         'active': ['exact'],
         'hotel': ['exact'],
-        'hotel__agency': ['exact']
+        'hotel__agency': ['exact'],
+        'location': ['exact']
     }
 
-    def get_authenticate_header(self, request):
-        """
-        If a request is unauthenticated, determine the WWW-Authenticate
-        header to use for 401 responses, if any.
-        """
-        authenticators = self.get_authenticators()
-        print(request.META)
-        print(authenticators, '*'*100)
-        if authenticators:
-            print(authenticators[0].authenticate_header(request), '?'*100)
-            return authenticators[0].authenticate_header(request)
+
+class BookingModelViewSet(FilterAndSearchModelViewSet):
+    queryset = BookingModel.objects.all()
+    serializer_class = BookingModelSerializer
+    permission_classes=[permissions.AllowAny,]
+    http_method_names = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']
+    filter_fields = {
+        'room': ['exact'],
+        'room__hotel__agency': ['exact'],
+        'confirmed': ['exact']
+    }
+
+
+class PaxModelViewSet(FilterAndSearchModelViewSet):
+    queryset = PaxModel.objects.all()
+    serializer_class = PaxModelSerializer
+    permission_classes=[permissions.AllowAny,]
+    http_method_names = [u'get', u'post', u'put', u'patch', u'delete', u'head', u'options', u'trace']
+    filter_fields = {
+        'booking': ['exact'],
+    }
+
+
+
+
+class DestinationsApiView(APIView):
+    permission_classes=[permissions.AllowAny]
+
+    def get(self, request, *args, **kwargs):
+        queryset = set(RoomModel.objects.filter(
+            active=True).values_list('location', flat=True))
+        return Response(list(queryset))

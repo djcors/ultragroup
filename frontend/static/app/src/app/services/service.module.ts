@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarService } from './services.index';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
+import { BookingMaskService } from './booking/booking-mask.service';
 
 
 
@@ -14,6 +15,7 @@ import { AuthGuard } from './guards/auth.guard';
   ],
   providers: [
     SidebarService,
+    BookingMaskService,
     AuthGuard
   ]
 })

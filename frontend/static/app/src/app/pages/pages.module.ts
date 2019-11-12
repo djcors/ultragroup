@@ -3,9 +3,9 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-//pages
+
+//backhotel
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './login/register.component';
 import { DashboardComponent } from './backhotel/dashboard/dashboard.component';
 import { MainComponent } from './backhotel/main.component';
@@ -16,6 +16,12 @@ import { PipesModule } from '../pipes/pipes.module';
 import { RoomsComponent } from './backhotel/rooms/rooms.component';
 import { AddRoomComponent } from './backhotel/rooms/add-room.component';
 import { AddHotelComponent } from './backhotel/hotels/add-hotel.component';
+
+// booking
+import { MainComponentComponent } from './booking/main-component.component';
+import { BookingRoomsComponent } from './booking/rooms/rooms.component';
+import { PaxComponent } from './booking/pax/pax.component';
+import { ConfirmComponent } from './booking/confirm/confirm.component';
 
 @NgModule({
     imports: [
@@ -29,7 +35,6 @@ import { AddHotelComponent } from './backhotel/hotels/add-hotel.component';
     ],
     declarations: [
         LoginComponent,
-        HomeComponent,
         RegisterComponent,
         DashboardComponent,
         MainComponent,
@@ -37,14 +42,19 @@ import { AddHotelComponent } from './backhotel/hotels/add-hotel.component';
         RoomsComponent,
         AddRoomComponent,
         AddHotelComponent,
+        MainComponentComponent,
+        BookingRoomsComponent,
+        PaxComponent,
+        ConfirmComponent,
     ],
     exports :[
         LoginComponent,
-        HomeComponent,
         RegisterComponent,
         DashboardComponent,
         MainComponent,
-        HotelsComponent
+        HotelsComponent,
+        MainComponentComponent,
+        BookingRoomsComponent
     ]
 })
 

@@ -107,6 +107,20 @@ export class ApiService {
     );
   }
 
+  getAny(endpoint:string): Observable<any>{
+    return this.http.get(
+      `${this.baseUrl}${endpoint}/`,
+      {headers: this.httpHeders}
+    );
+  }
+
+  getAnyWithParams(endpoint:string, params:string): Observable<any>{
+    return this.http.get(
+      `${this.baseUrl}${endpoint}/?${params}`,
+      {headers: this.httpHeders}
+    );
+  }
+
   deleteAny(endpoint:string, id:number): Observable<any>{
     return this.http.delete(
       `${this.baseUrl}${endpoint}/${id}/`,

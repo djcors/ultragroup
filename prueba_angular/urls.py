@@ -25,8 +25,11 @@ from backhotel.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/auth/', AuthToken.as_view()),
+    url(r'^api/destinations/', DestinationsApiView.as_view()),
     url(r'^api/agency/', include(agency_urlpattenrs)),
     url(r'^api/hotel/', include(hotel_urlpatterns)),
     url(r'^api/room/', include(room_urlpattenrs)),
+    url(r'^api/booking/', include(booking_urlpattenrs)),
+    url(r'^api/pax/', include(pax_urlpattenrs)),
     url(r'^.*', TemplateView.as_view(template_name="index.html"), name="home")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
