@@ -15,6 +15,8 @@ import { MainComponentComponent } from './booking/main-component.component';
 import { BookingRoomsComponent } from './booking/rooms/rooms.component';
 import { PaxComponent } from './booking/pax/pax.component';
 import { ConfirmComponent } from './booking/confirm/confirm.component';
+import { InvoiceComponent } from './booking/invoice/invoice.component';
+import { BookingsComponent } from './backhotel/bookings/bookings.component';
 
 const pagesRoutes: Routes = [
     {
@@ -49,6 +51,10 @@ const pagesRoutes: Routes = [
             {
                 path: 'rooms/:id',
                 component: AddRoomComponent
+            },
+            {
+                path: 'booking/:booking',
+                component: BookingsComponent
             }
         ]
     },
@@ -67,8 +73,12 @@ const pagesRoutes: Routes = [
             {
                 path: 'confirm/:booking',
                 component: ConfirmComponent
-            }
+            },
         ]
+    },
+    {
+        path: 'invoice/:booking',
+        component: InvoiceComponent
     }
 ];
 

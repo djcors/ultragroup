@@ -19,7 +19,7 @@ export class PaxComponent implements OnInit {
     public _apiServices: ApiService,
     public activeRoute: ActivatedRoute,
     public formBuilder: FormBuilder,
-    public router: Router
+    public router: Router,
   ) {
     this.activeRoute.params.subscribe(params => {
       this.bookingId = parseInt(params['booking'])
@@ -51,6 +51,12 @@ export class PaxComponent implements OnInit {
   getBooking(){
     this._apiServices.retrieveAny('booking', this.bookingId).subscribe(booking => {
       this.booking = booking
+    })
+  }
+
+  onCancel(){
+    this._apiServices.deleteAny('booking', this.booking.id).subscribe(resp =>{
+      this.router.navigateByUrl('/')
     })
   }
 

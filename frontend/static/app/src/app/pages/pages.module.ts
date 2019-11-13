@@ -22,6 +22,8 @@ import { MainComponentComponent } from './booking/main-component.component';
 import { BookingRoomsComponent } from './booking/rooms/rooms.component';
 import { PaxComponent } from './booking/pax/pax.component';
 import { ConfirmComponent } from './booking/confirm/confirm.component';
+import { InvoiceComponent } from './booking/invoice/invoice.component';
+import { BookingsComponent } from './backhotel/bookings/bookings.component';
 
 @NgModule({
     imports: [
@@ -46,6 +48,8 @@ import { ConfirmComponent } from './booking/confirm/confirm.component';
         BookingRoomsComponent,
         PaxComponent,
         ConfirmComponent,
+        InvoiceComponent,
+        BookingsComponent,
     ],
     exports :[
         LoginComponent,

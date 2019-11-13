@@ -1,6 +1,7 @@
 # coding: utf-8
 from backhotel.serializers import *
 from backhotel.models import *
+from django.db.models import Avg, Count, Min, Sum
 from rest_framework import (filters , generics,
     permissions, viewsets, parsers, renderers, status)
 from rest_framework.authtoken.serializers import AuthTokenSerializer
@@ -39,6 +40,9 @@ class AgencyViewSet(viewsets.ModelViewSet):
     queryset = AgencyModel.objects.all()
     serializer_class = AgencyModelSerializer
     permission_classes = [permissions.AllowAny]
+    filter_fields = {
+        'agency_hoteles__id': ['exact']
+    }
 
     def user_exists(self, username=None, email=None):
         usuario, correo = False, False
@@ -117,7 +121,6 @@ class PaxModelViewSet(FilterAndSearchModelViewSet):
 
 
 
-
 class DestinationsApiView(APIView):
     permission_classes=[permissions.AllowAny]
 
@@ -125,3 +128,25 @@ class DestinationsApiView(APIView):
         queryset = set(RoomModel.objects.filter(
             active=True).values_list('location', flat=True))
         return Response(list(queryset))
+
+
+class DashboardApiView(APIView):
+    permission_classes=[permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        agency = request.user.agencymodel
+        hotels = agency.agency_hoteles.all()
+        rooms = RoomModel.objects.filter(hotel__in=hotels)
+        bookings = BookingModel.objects.filter(confirmed=True,
+            room__in=rooms)
+        earnings = bookings.aggregate(
+            Sum('total_imported'))['total_imported__sum']
+
+        data = {
+            'total_hotels': hotels.count(),
+            'total_rooms': rooms.count(),
+            'total_bookings': bookings.count(),
+            'earnings': earnings
+        }
+
+        return Response(data)

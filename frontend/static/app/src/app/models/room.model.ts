@@ -8,6 +8,7 @@ export class Room {
         public active: boolean,
         public location:string,
         public room_type:string,
-        public id?: number
+        public id?: number,
+        public hotel_display?:string
     ){}
 }

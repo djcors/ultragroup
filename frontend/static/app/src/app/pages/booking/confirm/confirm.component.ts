@@ -84,7 +84,13 @@ export class ConfirmComponent implements OnInit {
     this.booking.emergency_name = this.form.value.emergency_name
     this.booking.emergency_phone = this.form.value.emergency_phone
     this._apiServices.updateAny('booking', this.booking, this.booking.id).subscribe(resp =>{
-      console.log(resp)
+      this.router.navigate(['/invoice', this.booking.id])
+    })
+  }
+
+  onCancel(){
+    this._apiServices.deleteAny('booking', this.booking.id).subscribe(resp =>{
+      this.router.navigateByUrl('/')
     })
   }
 

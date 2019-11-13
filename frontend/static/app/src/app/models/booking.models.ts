@@ -11,6 +11,7 @@ export class BookingModel {
         public total_pax?:number,
         public arrival?:string,
         public deperture?: string,
-        public id?:number
+        public id?:number,
+        public nights?:number
     ){}
 }

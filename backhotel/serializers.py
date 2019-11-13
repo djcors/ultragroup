@@ -1,4 +1,5 @@
 # coding: utf-8
+import datetime
 from rest_framework import serializers
 from backhotel.models import *
 
@@ -27,14 +28,19 @@ class RoomModelSerializer(serializers.ModelSerializer):
 
 
 class BookingModelSerializer(serializers.ModelSerializer):
-
+    room_display = serializers.CharField(source='room.name', read_only=True)
+    nights = serializers.SerializerMethodField(read_only=True)
     class Meta:
         model = BookingModel
         fields = '__all__'
 
+    def get_nights(self, obj):
+        return (obj.deperture - obj.arrival).days
+
 
 class PaxModelSerializer(serializers.ModelSerializer):
-
+    genre_display = serializers.CharField(source='get_genre_display', read_only=True)
+    doc_type_display = serializers.CharField(source='get_doc_type_display', read_only=True)
     class Meta:
         model = PaxModel
         fields = '__all__'

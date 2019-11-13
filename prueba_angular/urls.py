@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^api/auth/', AuthToken.as_view()),
     url(r'^api/destinations/', DestinationsApiView.as_view()),
+    url(r'^api/dashboard/', DashboardApiView.as_view()),
     url(r'^api/agency/', include(agency_urlpattenrs)),
     url(r'^api/hotel/', include(hotel_urlpatterns)),
     url(r'^api/room/', include(room_urlpattenrs)),
