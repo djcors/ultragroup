@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/services.index';
 import { Router } from "@angular/router";
 import { Agency } from 'src/app/models/agency.models';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,15 @@ export class LoginComponent implements OnInit {
       this._apiServices.authLogin(agency)
         .subscribe(resp =>{
           window.location.href = '/backhotel'
-        })
+        },
+        error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.error.results,
+          })
+        }
+        )
   }
 
 }
